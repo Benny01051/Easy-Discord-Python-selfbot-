@@ -2,21 +2,17 @@ import discord
 from discord.ext import commands
 
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix="." , intents=intents)
+client = commands.Bot(command_prefix="." , intents=intents)     # You can also use Bot if you want 
 
 @client.event
 async def on_ready():
     print(f'We have logged in as {client.user} ')
-
+ 
 @client.event
-async def on_message(ping):
-    if ping.author == client.user:
-        return
-
-    if ping.content.startswith('.ping'):
-        await ping.channel.send('.pong')
-
-
+async def ping(ctx):
+    ping = round(bot.latency * 1000)
+    response = f"Pong! {ping}ms"
+    await ctx.send(content=response)
 
 @client.event
 async def on_message(message):
